@@ -22,7 +22,7 @@ spec:
       - name: myregistrykey
       containers:
       - name: visaas-super-admin-ui
-        image: comuse/visaas-super-admin-ui:19
+        image: barathg25/html
         ports:
         - containerPort: 80
 ---
