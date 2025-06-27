@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visaas-fuse-ui-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visaas-fuse-ui-service
+  minReadySeconds: 100
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: visaas-fuse-ui-service
+    spec:
+      imagePullSecrets:
+      - name: myregistrykey
+      containers:
+      - name: visaas-fuse-ui-service
+        image: comuse/visaas-fuse-ui-service:18
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visaas-fuse-ui-service
+spec:
+  selector:
+    app: visaas-fuse-ui-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort
