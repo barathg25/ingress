@@ -2,8 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: myapp-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /   # Important for path rewrite
 spec:
   ingressClassName: nginx
   rules:
@@ -17,7 +15,7 @@ spec:
             name: visaas-super-admin-ui
             port:
               number: 80
-      - path: /
+      - path: /fuse
         pathType: Prefix
         backend:
           service:
