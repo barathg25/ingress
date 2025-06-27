@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visaas-super-admin-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visaas-super-admin-ui
+  minReadySeconds: 100
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: visaas-super-admin-ui
+    spec:
+      imagePullSecrets:
+      - name: myregistrykey
+      containers:
+      - name: visaas-super-admin-ui
+        image: comuse/visaas-super-admin-ui:19
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visaas-super-admin-ui
+spec:
+  selector:
+    app: visaas-super-admin-ui
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort
