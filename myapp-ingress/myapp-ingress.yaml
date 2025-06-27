@@ -5,16 +5,17 @@ metadata:
   namespace: ui
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    kubernetes.io/ingress.class: "nginx"  # Add this line
+    argocd.argoproj.io/tracking-id: myapp-ingress:networking.k8s.io/Ingress:ui/myapp-ingress
 spec:
+  ingressClassName: nginx  # This is the key change
   rules:
-  - host: myapp.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: visaas-fuse-ui-service
-            port:
-              number: 80
+    - host: myapp.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: visaas-fuse-ui-service
+                port:
+                  number: 80
