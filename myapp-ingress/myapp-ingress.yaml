@@ -19,10 +19,10 @@ spec:
                 name: visaas-fuse-ui-service
                 port:
                   number: 80
-         - path: /admin
+          - path: /admin
             pathType: Prefix
             backend:
               service:
                 name: visaas-super-admin-ui
                 port:
-                  number: 80         
+                  number: 80
